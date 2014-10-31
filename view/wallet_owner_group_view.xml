@@ -1,0 +1,28 @@
+<openerp>
+	<data>
+		<record id="wallet_owner_group_form" model="ir.ui.view">
+			<field name="name">wallet.owner.group.form</field>
+			<field name="model">wallet.owner.group</field>
+			<field name="arch" type="xml">
+				<form string="Owner Group Form" version="7.0">
+					<group>
+						<field name="name"/>
+						<field name="balance_min"/>
+						<field name="balance_overdraft"/>
+					</group>
+				</form>
+			</field>
+		</record>
+		<record id="wallet_owner_group_list" model="ir.ui.view">
+			<field name="name">wallet.owner.group.list</field>
+			<field name="model">wallet.owner.group</field>
+			<field name="arch" type="xml">
+				<tree string="Owner Group">
+					<field name="name" />
+					<field name="balance_min" />
+					<field name="balance_overdraft" />
+				</tree>
+			</field>
+		</record>
+	</data>
+</openerp>

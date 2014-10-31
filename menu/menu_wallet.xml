@@ -1,0 +1,48 @@
+<openerp>
+	<data>
+		
+		<menuitem sequence="1" name="Wallet" id="wallet_menu" />
+		
+		<!-- MASTER WALLET SETTINGS MENU -->
+		
+		<record id="wallet_action_owner_group" model="ir.actions.act_window">
+			<field name="name">Owner Group</field>	
+			<field name="res_model">wallet.owner.group</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		<record id="wallet_action_owner" model="ir.actions.act_window">
+			<field name="name">Owner</field>	
+			<field name="res_model">wallet.owner</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		<record id="wallet_action_master_trx" model="ir.actions.act_window">
+			<field name="name">Master Transaction</field>	
+			<field name="res_model">wallet.master.trx</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		<record id="wallet_action_transaction" model="ir.actions.act_window">
+			<field name="name">Transaction</field>	
+			<field name="res_model">wallet.transaction</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		<record id="wallet_action_manual_trx" model="ir.actions.act_window">
+			<field name="name">Manual Transaction</field>	
+			<field name="res_model">wallet.manual.trx.memory</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+		</record>
+		
+
+		<menuitem id="wallet_menu_setting" name="Setting" parent="wallet_menu" sequence="1" />
+			<menuitem sequence="1" parent="wallet_menu_setting" name="Owner Group" id="wallet_menu_owner_group" action="wallet_action_owner_group" />
+			<menuitem sequence="2" parent="wallet_menu_setting" name="Owner" id="wallet_menu_owner" action="wallet_action_owner" />
+			<menuitem sequence="3" parent="wallet_menu_setting" name="Master Transaction" id="wallet_menu_master_trx" action="wallet_action_master_trx" />
+			<menuitem sequence="4" parent="wallet_menu_setting" name="Transaction" id="wallet_menu_transaction" action="wallet_action_transaction" />
+			<menuitem sequence="4" parent="wallet_menu_setting" name="Manual Transaction" id="wallet_menu_manual_trx" action="wallet_action_manual_trx" />
+			
+	</data>
+</openerp>
