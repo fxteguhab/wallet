@@ -1,4 +1,1 @@
-import wallet_master_trx
-import wallet_owner_group
-import wallet_owner
-import wallet_transaction
+import wallet
