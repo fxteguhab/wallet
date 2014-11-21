@@ -9,7 +9,7 @@
 	'website': 'http://www.chjs.biz',
 	'depends': ["base","board","web","report_webkit","account"],
 	'data': [
- 		'view/wallet.xml',
+ 		'views/wallet.xml',
 		'menu/menu_wallet.xml',
 	],
 	'demo': [

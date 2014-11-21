@@ -13,6 +13,12 @@
 						<field name="balance_min" />
 						<field name="balance_overdraft" />
 					</group>
+					<div>
+						Overdraft is an amount given to this owner group as a tolerance. Owners that have reached his/her minimum 
+						balance are still allowed to perform transactions that decrease the balance as long as the new balance is still 
+						more than (minumum balance minus overdraft). Such transactions are specially flagged and you can view 
+						how often owners perform transactions under this "red" zone.
+					</div>
 				</form>
 			</field>
 		</record>
@@ -38,10 +44,8 @@
 				<form string="Owner Form" version="7.0">
 					<group>
 						<field name="name" />
-						<field name="ref_model" />
-						<field name="ref_id" />
-						<field name="balance_amount" />
 						<field name="owner_group_id" />
+						<field name="balance_amount" />
 					</group>
 				</form>
 			</field>
@@ -51,13 +55,24 @@
 			<field name="name">wallet.owner.list</field>
 			<field name="model">wallet.owner</field>
 			<field name="arch" type="xml">
-				<tree string="Owner">
+				<tree string="Owner" version="7.0" autoexpand_group="1">
 					<field name="name" />
-					<field name="ref_model" />
-					<field name="ref_id" />
-					<field name="balance_amount" />
 					<field name="owner_group_id" />
+					<field name="balance_amount" />
 				</tree>
+			</field>
+		</record>
+		
+		<record id="wallet_owner_filter" model="ir.ui.view">
+			<field name="name">wallet.owner.filter</field>
+			<field name="model">wallet.owner</field>
+			<field name="arch" type="xml">
+				<search string="Owner Search" version="7.0">
+					<field name="name" string="Name" filter_domain="[('name','ilike',self)]" />
+					<group string="Group By">
+						<filter name="group_owner_group" string="Owner Group" domain="[]" context="{'group_by':'owner_group_id'}" />
+					</group>
+				</search>
 			</field>
 		</record>
 		
@@ -71,12 +86,9 @@
 					<group>
 						<field name="name" />
 						<field name="mnemonic" />
-						<field name="need_approve" />
 						<field name="inc_dec" />
-						<field name="journal_debit_acc_id" />
-						<field name="journal_credit_acc_id" />
-						<field name="journal_debit_flag" />
-						<field name="journal_credit_flag" />
+						<field name="need_approve" />
+						<field name="journal_id" />
 					</group>
 				</form>
 			</field>
@@ -91,6 +103,7 @@
 					<field name="mnemonic" />
 					<field name="need_approve" />
 					<field name="inc_dec" />
+					<field name="journal_id" />
 				</tree>
 			</field>
 		</record>
@@ -104,16 +117,13 @@
 				<form string="Transaction Form" version="7.0" after_save="wallet.wallet_action_manual_trx">
 					<group>
 						<field name="trx_date" />
-						<field name="wallet_owner_id" />
+						<field name="owner_id" widget="selection" />
 						<field name="name" />
-						<field name="trx_type_id" on_change="onchange_master_trx(trx_type_id)"/>
-						<field name="need_approve" />
+						<field name="trx_type_id" on_change="onchange_master_trx(trx_type_id)" no_create="1" />
+						<field name="amount" />
 						<field name="inc_dec" />
 						<field name="journal_debit_acc_id" />
 						<field name="journal_credit_acc_id" />
-						<field name="journal_debit_flag" />
-						<field name="journal_credit_flag" />
-						<field name="amount" />
 					</group>
 				</form>
 			</field>
@@ -127,9 +137,9 @@
 			<field name="arch" type="xml">
 				<form string="Transaction Form" version="7.0" create="false" edit="false" delete="false">
 					<header>
-						<button name="action_approve_trx" type="object" string="Approve Trx" states="pending"
+						<button name="action_approve_trx" type="object" string="Approve" states="pending" class="oe_highlight"
 							confirm="Are you sure to APPROVE this transaction?" />		
-						<button name="action_reject_trx" type="object" string="Reject Trx" states="pending"
+						<button name="action_reject_trx" type="object" string="Reject" states="pending"
 							confirm="Are you sure to REJECT this transaction?" />	
 					</header>
 					<group>
@@ -148,14 +158,48 @@
 			<field name="name">wallet.transaction.list</field>
 			<field name="model">wallet.transaction</field>
 			<field name="arch" type="xml">
-				<tree string="Master Transaction" create="false" edit="false" delete="false">
+				<tree string="Transaction History" create="false" edit="false" delete="false" 
+				fonts="bold:wallet_owner_id==False" colors="red:is_overdraft==True">
+					<field name="trx_date" />
 					<field name="name" />
 					<field name="trx_type_id" />
 					<field name="wallet_owner_id" />
-					<field name="increase_amount" sum="Total Increase"/>
-					<field name="decrease_amount" sum="Total Decrease"/>
+					<field name="increase_amount" sum="Total" />
+					<field name="decrease_amount" sum="Total" />
+					<field name="running_balance" />
 					<field name="state" />
+					<field name="approved_by" />
+					<field name="is_overdraft" />
 				</tree>
+			</field>
+		</record>
+		
+		<!-- TRANSACTION FILTER VIEW -->
+		
+		<record id="wallet_transaction_filter_form" model="ir.ui.view">
+			<field name="name">wallet.transaction.filter.form</field>
+			<field name="model">wallet.transaction.filter</field>
+			<field name="arch" type="xml">
+				<form string="Transaction History Filter" version="7.0">
+					<group>
+						<group>
+							<field name="date_range" on_change="onchange_date_range(date_range)" />
+						</group>
+						<group>
+							<field name="date_from" />
+							<field name="date_to" />
+						</group>
+					</group>
+					<group>
+						<field name="owner_id" no_create="1" />
+						<field name="include_pending" />
+					</group>
+					<footer>
+						<button string="View History" name="action_view_history" type="object" class="oe_highlight" />
+						or
+						<button string="Cancel" special="cancel" />				
+					</footer>
+				</form>
 			</field>
 		</record>
 		
