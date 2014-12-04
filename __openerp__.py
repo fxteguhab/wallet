@@ -11,6 +11,7 @@
 	'data': [
  		'views/wallet.xml',
 		'menu/menu_wallet.xml',
+		'report/report_wallet.xml',
 	],
 	'demo': [
 	],

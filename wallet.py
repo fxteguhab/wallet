@@ -517,8 +517,6 @@ class wallet_manual_trx_memory(osv.osv_memory):
 		'trx_type_id': fields.many2one('wallet.master.trx', 'Transaction Type'),
 		'is_approval': fields.boolean('Need approval?'),
 		'inc_dec': fields.selection(_INC_DEC, 'Increase/Decrease?', required=True),
-		'journal_debit_acc_id': fields.many2one('account.account', 'Journal Debit'),
-		'journal_credit_acc_id': fields.many2one('account.account', 'Journal Credit'),
 		'amount': fields.float('Amount', required=True), 
 	}
 	
@@ -541,10 +539,6 @@ class wallet_manual_trx_memory(osv.osv_memory):
 			'value': {
 				'is_approval': master_trx.need_approve or "",
 				'inc_dec': master_trx.inc_dec or "",
-				'journal_debit_acc_id': master_trx.journal_id and master_trx.journal_id.default_debit_account_id and 
-					master_trx.journal_id.default_debit_account_id.id or "",
-				'journal_credit_acc_id': master_trx.journal_id and master_trx.journal_id.default_credit_account_id and 
-					master_trx.journal_id.default_credit_account_id.id or "",
 			}
 		}
 	

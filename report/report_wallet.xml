@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+		<record id="wallet_overdraft_report_graph" model="ir.ui.view">
+			<field name="name">wallet.overdraft.report.graph</field>
+			<field name="model">wallet.overdraft.report</field>
+			<field name="arch" type="xml">
+				<graph string="Overdraft Transactions" type="pivot">
+					<field name="trx_date" type="row"/>
+					<field name="overdraft_qty" type="measure"/>
+				</graph>
+			</field>
+		</record>
+
+		<record id="wallet_overdraft_report_search" model="ir.ui.view">
+			<field name="name">wallet.overdraft.report.search</field>
+			<field name="model">wallet.overdraft.report</field>
+			<field name="arch" type="xml">
+				<search string="Overdraft Transactions">
+					<filter string="This Year" name="thisyear" domain="['&amp;',('trx_date','&lt;=', time.strftime('%%Y-12-31')),('trx_date','&gt;=',time.strftime('%%Y-01-01'))]" help="Overdraft transactions this year"/>
+					<filter string="Last Year" name="lastyear" domain="['&amp;',('trx_date','&lt;=', time.strftime('%%Y-12-31')),('trx_date','&gt;=',time.strftime('%%Y-01-01'))]" help="Overdraft transactions last year"/>
+				</search>
+			</field>
+		</record>
+
+	</data>	
+</openerp>

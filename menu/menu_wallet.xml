@@ -68,6 +68,20 @@
 			<field name="context">{'search_default_group_owner_group': 1}</field>
 		</record>
 		
+		<!-- REPORTING -->
+		
+		<record id="wallet_action_overdraft_report" model="ir.actions.act_window">
+			<field name="name">Overdraft Analysis</field>
+			<field name="res_model">wallet.overdraft.report</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">graph</field>
+			<field name="context">{
+				'group_by': [],
+				'search_default_thisyear': 1, 
+				'group_by_no_leaf': 1
+			}</field>
+		</record>
+		
 		<!-- MENU BREAKDOWN	-->
 		
 		<menuitem sequence="5" name="Wallet" id="wallet_menu" />
@@ -83,5 +97,8 @@
 			<menuitem sequence="2" parent="wallet_menu_setting" id="wallet_menu_owner_group" action="wallet_action_owner_group" />
 			<menuitem sequence="3" parent="wallet_menu_setting" id="wallet_menu_owner" action="wallet_action_owner" />
 			
+		<menuitem sequence="33" parent="base.menu_reporting" id="wallet_menu_reporting" name="Wallet" />
+			<menuitem sequence="2" parent="wallet_menu_reporting" action="wallet_action_overdraft_report" id="wallet_menu_overdraft_report" />
+		
 	</data>
 </openerp>

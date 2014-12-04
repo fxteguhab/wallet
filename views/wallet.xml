@@ -117,13 +117,11 @@
 				<form string="Transaction Form" version="7.0" after_save="wallet.wallet_action_manual_trx">
 					<group>
 						<field name="trx_date" />
+						<field name="trx_type_id" on_change="onchange_master_trx(trx_type_id)" no_create="1" />
 						<field name="owner_id" widget="selection" />
 						<field name="name" />
-						<field name="trx_type_id" on_change="onchange_master_trx(trx_type_id)" no_create="1" />
 						<field name="amount" />
 						<field name="inc_dec" />
-						<field name="journal_debit_acc_id" />
-						<field name="journal_credit_acc_id" />
 					</group>
 				</form>
 			</field>
