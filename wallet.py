@@ -327,9 +327,8 @@ class wallet_transaction(osv.osv):
 			amount = max(row.increase_amount,row.decrease_amount)
 		# kalo ada jurnalnya, cek bahwa sequence jurnalnya udah diset sama user nya
 			if row.trx_type_id.journal_id:
-				if not row.trx_type_id.journal_id.sequence_id.prefix and not row.trx_type_id.journal_id.sequence_id.prefix:
-					raise osv.except_osv(_('Wallet Transaction Error'), _('Journal sequence is not yet set. Please contact \
-					your administrator.')) 
+				if not row.trx_type_id.journal_id.sequence_id.prefix and not row.trx_type_id.journal_id.sequence_id.suffix:
+					raise osv.except_osv(_('Wallet Transaction Error'), _('Journal sequence is not yet set. Please contact your administrator.')) 
 		# dor! posting deh
 		# siapin account move header, lalu bikin deh
 			account_move_data = account_move_obj.account_move_prepare(cr, uid, journal_id)
