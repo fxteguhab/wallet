@@ -583,14 +583,6 @@ class wallet_transaction_filter(osv.osv_memory):
 # ONCHANGE ----------------------------------------------------------------------------------------------------------------------
 
 	def onchange_date_range(self, cr, uid, ids, date_range):
-		"""
-_DATE_RANGE = [
-	(1, 'This month'),
-	(2, 'Last month'),
-	(3, 'Last three months'),
-	(4, 'This year'),
-]
-		"""
 		today = date.today()
 		if date_range == 1: # this month
 			return {
