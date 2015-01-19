@@ -36,7 +36,7 @@ class wallet_owner_group(osv.osv):
 
 	_columns = {
 		'name': fields.char('Name', required=True),
-		'balance_min': fields.float('Minumum Balance'),
+		'balance_min': fields.float('Minimum Balance'),
 		'balance_overdraft': fields.float('Overdraft'),
 	}
 	
