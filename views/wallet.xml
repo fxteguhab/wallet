@@ -16,7 +16,7 @@
 					<div>
 						Overdraft is an amount given to this owner group as a tolerance. Owners that have reached his/her minimum 
 						balance are still allowed to perform transactions that decrease the balance as long as the new balance is still 
-						more than (minumum balance minus overdraft). Such transactions are specially flagged and you can view 
+						more than (minimum balance minus overdraft). Such transactions are specially flagged and you can view 
 						how often owners perform transactions under this "red" zone.
 					</div>
 				</form>
