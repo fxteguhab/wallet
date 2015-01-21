@@ -92,7 +92,7 @@
 			<menuitem sequence="4" parent="wallet_menu_transaction" id="wallet_menu_trx_reject" action="wallet_action_reject" />
 			<menuitem sequence="5" parent="wallet_menu_transaction" id="wallet_menu_manual_trx" action="wallet_action_manual_trx" />
 		
-		<menuitem sequence="2" id="wallet_menu_setting" name="Configuration" parent="wallet_menu" />
+		<menuitem sequence="2" id="wallet_menu_setting" name="Configuration" parent="wallet_menu" groups="base.group_system" />
 			<menuitem sequence="1" parent="wallet_menu_setting" id="wallet_menu_master_trx" action="wallet_action_master_trx" />
 			<menuitem sequence="2" parent="wallet_menu_setting" id="wallet_menu_owner_group" action="wallet_action_owner_group" />
 			<menuitem sequence="3" parent="wallet_menu_setting" id="wallet_menu_owner" action="wallet_action_owner" />
