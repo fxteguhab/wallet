@@ -570,7 +570,7 @@ class wallet_transaction_filter(osv.osv_memory):
 		'date_from': fields.date('From Date', required=True),
 		'date_to': fields.date('To', required=True),
 		'date_range': fields.selection(_DATE_RANGE, 'Date Range'),
-		'owner_id': fields.many2one('wallet.owner', 'Owner'),
+		'owner_id': fields.many2one('wallet.owner', 'Owner', required=True),
 		'include_pending': fields.boolean('Include Pending?'),
 	}
 	
