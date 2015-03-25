@@ -36,6 +36,7 @@ class wallet_owner_group(osv.osv):
 
 	_columns = {
 		'name': fields.char('Name', required=True),
+		'is_deposit': fields.boolean('Use Deposit System?'),
 		'balance_min': fields.float('Minimum Balance'),
 		'balance_overdraft': fields.float('Overdraft'),
 	}
@@ -247,7 +248,7 @@ class wallet_transaction(osv.osv):
 			raise osv.except_osv(_('Wallet Transaction Error'), _('Please specify amount of this transaction.')) 
 	# cek minimum balance dan overdraft
 		is_overdraft = False
-		if inc_dec == 'decrease':
+		if inc_dec == 'decrease' and owner_data.owner_group_id.is_deposit:
 			next_balance = owner_data.balance_amount - amount
 			if next_balance < owner_data.owner_group_id.balance_min:
 				is_overdraft = True

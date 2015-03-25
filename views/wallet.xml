@@ -10,8 +10,9 @@
 				<form string="Owner Group Form" version="7.0">
 					<group>
 						<field name="name" />
-						<field name="balance_min" />
-						<field name="balance_overdraft" />
+						<field name="is_deposit" />
+						<field name="balance_min" attrs="{'invisible': [('is_deposit','=',False)]}" />
+						<field name="balance_overdraft" attrs="{'invisible': [('is_deposit','=',False)]}" />
 					</group>
 					<div>
 						Overdraft is an amount given to this owner group as a tolerance. Owners that have reached his/her minimum 
